@@ -2,6 +2,7 @@
 
 # 获取当前分支名
 BRANCH_NAME=''
+env
 if [ ! -n $CI_COMMIT_BRANCH ]; then
 	BRANCH_NAME=$CI_COMMIT_BRANCH
 	echo $BRANCH_NAME
