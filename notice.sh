@@ -12,9 +12,10 @@ ARR=($LINES)
 if [ ! -n "$DATE_FORMAT" ]; then
 	DATE_FORMAT='%d/%m %H:%M'
 fi
+echo $DATE_FORMAT
 
 # 获取两次push区间内的所有的提交记录
-commits=`git log --abbrev-commit --date=format:"$DATA_FORMAT" --pretty="%cd %an: %B" ${ARR[${#ARR[@]}-1]}..${ARR[0]}`
+commits=`git log --abbrev-commit --date=format:"$DATE_FORMAT" --pretty="%cd %an: %B" ${ARR[${#ARR[@]}-1]}..${ARR[0]}`
 message=`echo  "${commits//$'\n'/\n}"`
 
 # 填充消息标题
