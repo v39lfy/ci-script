@@ -3,8 +3,8 @@
 # 获取当前分支名
 BRANCH_NAME=''
 env
-if [ ! -n $CI_COMMIT_BRANCH ]; then
-	BRANCH_NAME=$CI_COMMIT_BRANCH
+if [ $CI_COMMIT_BRANCH ]; then
+	BRANCH_NAME=origin/$CI_COMMIT_BRANCH
 	echo $BRANCH_NAME
 else
 	BRANCH_NAME=origin/$(git symbolic-ref --short -q HEAD)
