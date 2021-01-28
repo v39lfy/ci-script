@@ -9,7 +9,7 @@ LINES=$(git reflog show $BRANCH_NAME | grep "update by push" | awk '{print $1}' 
 ARR=($LINES)
 
 # 填充日期格式设置的值
-if [ !-n $DATE_FORMAT ]; then
+if [ ! -n "$DATE_FORMAT" ]; then
 	DATE_FORMAT='%d/%m %H:%M'
 fi
 
@@ -18,14 +18,13 @@ commits=`git log --abbrev-commit --date=format:"$DATA_FORMAT" --pretty="%cd %an:
 message=`echo  "${commits//$'\n'/\n}"`
 
 # 填充消息标题
-if [ ! -n $TITLE ]; then
+if [ ! -n "$TITLE" ]; then
 	TITLE='code is updated:'
 fi
 
 # 钉钉推送
 if [ $DING_BOT_TOKEN ]; then
 	body=$(echo -e '{"msgtype": "text","text": {"content": "' $TITLE '\n' $message '\n-- by test"}}')
-	echo $message
 	curl 'https://oapi.dingtalk.com/robot/send?access_token='$DING_BOT_TOKEN \
 	       -H 'Content-Type: application/json' \
 	       -d "${body}"
