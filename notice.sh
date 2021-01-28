@@ -37,6 +37,8 @@ if [ ! -n "$DATE_FORMAT" ]; then
 	DATE_FORMAT='%d/%m %H:%M'
 fi
 echo $DATE_FORMAT
+echo $BEGIN_SEGMENT
+echo $END_SEGMENT
 
 # 获取两次push区间内的所有的提交记录
 commits=`git log --abbrev-commit --date=format:"$DATE_FORMAT" --pretty="%cd %an: %B" ${BEGIN_SEGMENT}..${END_SEGMENT}`
