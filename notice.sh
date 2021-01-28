@@ -5,14 +5,13 @@ BRANCH_NAME=''
 env
 if [ $CI_COMMIT_BRANCH ]; then
 	BRANCH_NAME=origin/$CI_COMMIT_BRANCH
-	echo $BRANCH_NAME
 else
 	BRANCH_NAME=origin/$(git symbolic-ref --short -q HEAD)
 fi
 echo $BRANCH_NAME
 
 # 当前最后两次push的reflog
-LINES=$(git reflog show  | grep "update by push" | awk '{print $1}' | head -n 2)
+LINES=$(git reflog show $BRANCH_NAME | grep "update by push" | awk '{print $1}' | head -n 2)
 
 # 转换成数组
 ARR=($LINES)
