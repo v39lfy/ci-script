@@ -49,10 +49,10 @@ if [ ! -n "$DATE_FORMAT" ]; then
 fi
 
 # 获取两次push区间内的所有的提交记录
-commits=`git log --abbrev-commit --date=format:"$DATE_FORMAT" --pretty="「%cd, %an」:「%B」" ${BEGIN_SEGMENT}..${END_SEGMENT}`
+commits=`git log --abbrev-commit --date=format:"$DATE_FORMAT" --pretty="「%cd, %an」:「%B」\n" ${BEGIN_SEGMENT}..${END_SEGMENT}`
 echo $commits
 
-message=`echo  "${commits//$'\n\n'/'\n'}"`
+message=`echo  "${commits//$'\n\n'/''}"`
 # message=`echo  "${message//$'\n'/''}"`
 echo $message
 # 填充消息标题
