@@ -52,9 +52,12 @@ fi
 commits=`git log --abbrev-commit --date=format:"$DATE_FORMAT" --pretty="「%cd, %an」:「%B」\n" ${BEGIN_SEGMENT}..${END_SEGMENT}`
 echo $commits
 
+# 删除JSON 格式不需要的换行符
 message=`echo  "${commits//$'\n\n'/''}"`
 message=`echo  "${message//$'\n'/''}"`
+
 echo $message
+
 # 填充消息标题
 if [ ! -n "$TITLE" ]; then
 	TITLE='code is updated:'
