@@ -53,7 +53,7 @@ commits=`git log --abbrev-commit --date=format:"$DATE_FORMAT" --pretty="「%cd, 
 echo $commits
 
 message=`echo  "${commits//$'\n\n'/'\n'}"`
-message=`echo  "${message//$'\n'/'\n'}"`
+message=`echo  "${message//$'\n'/''}"`
 echo $message
 # 填充消息标题
 if [ ! -n "$TITLE" ]; then
