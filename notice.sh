@@ -54,6 +54,7 @@ echo $commits
 
 message=`echo  "${commits//$'\n\n'/'\n'}"`
 message=`echo  "${message//$'\n'/''}"`
+message=`echo  "${message//^ /''}"`
 echo $message
 # 填充消息标题
 if [ ! -n "$TITLE" ]; then
