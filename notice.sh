@@ -65,7 +65,7 @@ fi
 
 # 钉钉推送
 if [ $DING_BOT_TOKEN ]; then
-	body=$(echo '{"msgtype": "text","text": {"content": "'$TITLE'\n'$message'\n"}}')
+	body=$(echo '{"msgtype": "text","text": {"content": "'$TITLE'\n\n'$message'"}}')
 	echo $body
 	curl 'https://oapi.dingtalk.com/robot/send?access_token='$DING_BOT_TOKEN \
 	    -H 'Content-Type: application/json' \
