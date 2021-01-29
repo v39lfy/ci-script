@@ -13,6 +13,7 @@ echo $BRANCH_NAME
 # 当前最后两次push的reflog
 LINES=$(git reflog show $BRANCH_NAME | grep "update by push" | awk '{print $1}' | head -n 2)
 
+
 # 转换成数组, 获取开始和结束的标签
 i=0
 for line in ${LINES}; do
@@ -28,6 +29,16 @@ if [ $ARR1 ]; then
 	BEGIN_SEGMENT=$ARR1
 else
 	BEGIN_SEGMENT=$ARR0
+fi
+
+# 在CI状态下读取系统变量
+if [ $CI_BUILD_BEFORE_SHA ]; then
+	BEGIN_SEGMENT=$CI_BUILD_BEFORE_SHA
+fi
+
+# 在CI状态下读取系统变量
+if [ $CI_COMMIT_SHA ]; then
+	END_SEGMENT=$CI_COMMIT_SHA
 fi
 
 
