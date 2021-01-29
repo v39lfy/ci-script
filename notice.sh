@@ -52,8 +52,8 @@ fi
 commits=`git log --abbrev-commit --date=format:"$DATE_FORMAT" --pretty="「%cd, %an」:「%B」" ${BEGIN_SEGMENT}..${END_SEGMENT}`
 echo $commits
 
-message=`echo  "${commits//$'\n\n'/$'\n'}"`
-message=`echo  "${message//$'\n'/$'\\n'}"`
+message=`echo  "${commits//$'\n\n'/'\n'}"`
+message=`echo  "${message//$'\n'/'\n'}"`
 echo $message
 # 填充消息标题
 if [ ! -n "$TITLE" ]; then
