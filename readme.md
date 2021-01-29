@@ -5,7 +5,7 @@
  curl https://sh.pvp.run/notice.sh | \
  DATE_FORMAT="%m月%d日%H:%M" \
  DING_BOT_TOKEN=<Token> \
- TITLE=<包含关键字的标题>
+ TITLE=<包含关键字的标题> \
  sh
 
 ```
