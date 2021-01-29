@@ -49,7 +49,7 @@ if [ ! -n "$DATE_FORMAT" ]; then
 fi
 
 # 获取两次push区间内的所有的提交记录
-commits=`git log --abbrev-commit --date=format:"$DATE_FORMAT" --pretty="「%cd, %an」:「%B」\n" ${BEGIN_SEGMENT}..${END_SEGMENT}`
+commits=`git log --abbrev-commit --date=format:"$DATE_FORMAT" --pretty="> - **%cd, %an**:%B" ${BEGIN_SEGMENT}..${END_SEGMENT}`
 echo $commits
 
 # 删除JSON 格式不需要的换行符
@@ -65,7 +65,7 @@ fi
 
 # 钉钉推送
 if [ $DING_BOT_TOKEN ]; then
-	body=$(echo '{"msgtype": "text","text": {"content": "'$TITLE'\n\n'$message'"}}')
+	body=$(echo '{"msgtype": "markdown","markdown": {"title": "'$TITLE'", "text": "'$message'"}}')
 	echo $body
 	curl 'https://oapi.dingtalk.com/robot/send?access_token='$DING_BOT_TOKEN \
 	    -H 'Content-Type: application/json' \
