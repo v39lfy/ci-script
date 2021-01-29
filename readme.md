@@ -2,7 +2,11 @@
 ### 一、消息通知
 #### 钉钉
 ```shell
- curl https://sh.pvp.run/notice.sh | DATE_FORMAT="%m月%d日%H:%M" DING_BOT_TOKEN=<Token> bash
+ curl https://sh.pvp.run/notice.sh | \
+ DATE_FORMAT="%m月%d日%H:%M" \
+ DING_BOT_TOKEN=<Token> \
+ TITLE=<包含关键字的标题>
+ sh
 
 ```
 ##### 变量列表:
