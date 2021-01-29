@@ -51,7 +51,7 @@ fi
 # 获取两次push区间内的所有的提交记录
 commits=`git log --abbrev-commit --date=format:"$DATE_FORMAT" --pretty="%cd %an: %B" ${BEGIN_SEGMENT}..${END_SEGMENT}`
 echo $commits
-message=`echo  "${commits//$'\n'/\n}"`
+message=`echo  "${commits//$'\n'/\\n}"`
 
 echo $message
 # 填充消息标题
@@ -64,8 +64,8 @@ if [ $DING_BOT_TOKEN ]; then
 	body=$(echo '{"msgtype": "text","text": {"content": "'$TITLE'\n' $message '\n"}}')
 	echo $body
 	curl 'https://oapi.dingtalk.com/robot/send?access_token='$DING_BOT_TOKEN \
-	       -H 'Content-Type: application/json' \
-	       -d "${body}"
+	    -H 'Content-Type: application/json' \
+	    -d "${body}"
 fi
 
 # 企业微信推送
