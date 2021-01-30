@@ -53,9 +53,9 @@ fi
 PRETTY_FORMAT="> %an: "
 # 在CI状态，添加提交链接
 if [ $CI_PROJECT_URL ]; then
-	PRETTY_FORMAT=$PRETTY_FORMAT"[%B]("$CI_PROJECT_URL"/-/commit/%H)  <br />  "
+	PRETTY_FORMAT=$PRETTY_FORMAT"[%B]("$CI_PROJECT_URL"/-/commit/%H)\n"
 else
-	PRETTY_FORMAT=$PRETTY_FORMAT"%B  <br />  "
+	PRETTY_FORMAT=$PRETTY_FORMAT"%B\n"
 fi
 
 # 获取两次push区间内的所有的提交记录
@@ -72,12 +72,12 @@ if [ ! -n "$TITLE" ]; then
 	TITLE='code is updated:'
 fi
 
-#test
-commits="#### 杭州天气 @150XXXXXXXX \n> 9度，西北风1级，空气良89，相对温度73%\n> ![screenshot](https://img.alicdn.com/tfs/TB1NwmBEL9TBuNjy1zbXXXpepXa-2400-1218.png)\n> ###### 10点20分发布 [天气](https://www.dingalk.com) \n"
+# test 官方demo
+# commits="#### 杭州天气 @150XXXXXXXX \n> 9度，西北风1级，空气良89，相对温度73%\n> ![screenshot](https://img.alicdn.com/tfs/TB1NwmBEL9TBuNjy1zbXXXpepXa-2400-1218.png)\n> ###### 10点20分发布 [天气](https://www.dingalk.com) \n"
 
 # 钉钉推送
 if [ $DING_BOT_TOKEN ]; then
-	body=$(echo '{"msgtype": "markdown","markdown": {"title": "'$TITLE'", "text": "'$commits'"}}')
+	body=$(echo '{"msgtype": "markdown","markdown": {"title": "'$TITLE'", "text": "#### '$TITLE' \n'$commits'"}}')
 	echo $body
 	curl 'https://oapi.dingtalk.com/robot/send?access_token='$DING_BOT_TOKEN \
 	    -H 'Content-Type: application/json' \
