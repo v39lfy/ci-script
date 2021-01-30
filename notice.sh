@@ -80,8 +80,9 @@ function parse_json()
     sed -e 's/^[ \t]*//g' | \
     sed -e 's/^"//'  -e 's/"$//'
 }
-pic_url=parse_json $(curl https://api.thecatapi.com/v1/images/search) url
-echo $pic_url
+# pic_url=parse_json $(curl https://api.thecatapi.com/v1/images/search) url
+parse_json $(curl https://api.thecatapi.com/v1/images/search) url
+# echo $pic_url
 
 # 删除JSON 格式不需要的换行符
 # message=`echo  "${commits//$'\n\n'/''}"`
