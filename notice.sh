@@ -8,7 +8,7 @@ if [ $CI_COMMIT_BRANCH ]; then
 else
 	BRANCH_NAME=origin/$(git symbolic-ref --short -q HEAD)
 fi
-echo $BRANCH_NAME
+echo "BRANCH_NAME: "$BRANCH_NAME
 
 # 当前最后两次push的reflog
 LINES=$(git reflog show $BRANCH_NAME | grep "update by push" | awk '{print $1}' | head -n 2)
@@ -61,7 +61,7 @@ echo $PRETTY_FORMAT
 
 # 获取两次push区间内的所有的提交记录
 commits=`git log --abbrev-commit --date=format:"$DATE_FORMAT" --pretty="$PRETTY_FORMAT" ${BEGIN_SEGMENT}..${END_SEGMENT}`
-echo $commits
+echo "commits: "$commits
 
 # 从JSON 中获取图片URL
 function parse_json()
@@ -81,27 +81,20 @@ function parse_json()
     sed -e 's/^"//'  -e 's/"$//'
 }
 pic_url=`parse_json $(curl https://api.thecatapi.com/v1/images/search) url`
-echo "pic_url:"$pic_url
+echo "pic_url: "$pic_url
+# 拼接成钉钉需要的图片格式
 screenshot=" ![screenshot]("$pic_url")\n\n"
-echo "screenshot:"$screenshot
-
-# 删除JSON 格式不需要的换行符
-# message=`echo  "${commits//$'\n\n'/''}"`
-# message=`echo  "${message//$'\n'/''}"`
-# echo $message
+echo "screenshot: "$screenshot
 
 # 填充消息标题
 if [ ! -n "$TITLE" ]; then
 	TITLE='code is updated:'
 fi
 
-# test 官方demo
-# commits="#### 杭州天气 @150XXXXXXXX \n> 9度，西北风1级，空气良89，相对温度73%\n> ![screenshot](https://img.alicdn.com/tfs/TB1NwmBEL9TBuNjy1zbXXXpepXa-2400-1218.png)\n> ###### 10点20分发布 [天气](https://www.dingalk.com) \n"
-
 # 钉钉推送
 if [ $DING_BOT_TOKEN ]; then
 	body=$(echo '{"msgtype": "markdown","markdown": {"title": "'$TITLE'", "text": "#### '$TITLE' \n> '$commits''$screenshot'"}}')
-	echo $body
+	echo "body: "$body
 	curl 'https://oapi.dingtalk.com/robot/send?access_token='$DING_BOT_TOKEN \
 	    -H 'Content-Type: application/json' \
 	    -d "${body}"
