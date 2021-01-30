@@ -63,6 +63,26 @@ echo $PRETTY_FORMAT
 commits=`git log --abbrev-commit --date=format:"$DATE_FORMAT" --pretty="$PRETTY_FORMAT" ${BEGIN_SEGMENT}..${END_SEGMENT}`
 echo $commits
 
+# 从JSON 中获取图片URL
+function parse_json()
+{
+    echo $1 | \
+    sed -e 's/[{}]/''/g' | \
+    sed -e 's/", "/'\",\"'/g' | \
+    sed -e 's/" ,"/'\",\"'/g' | \
+    sed -e 's/" , "/'\",\"'/g' | \
+    sed -e 's/","/'\"---SEPERATOR---\"'/g' | \
+    awk -F=':' -v RS='---SEPERATOR---' "\$1~/\"$2\"/ {print}" | \
+    sed -e "s/\"$2\"://" | \
+    tr -d "\n\t" | \
+    sed -e 's/\\"/"/g' | \
+    sed -e 's/\\\\/\\/g' | \
+    sed -e 's/^[ \t]*//g' | \
+    sed -e 's/^"//'  -e 's/"$//'
+}
+pic_url=parse_json $(curl https://api.thecatapi.com/v1/images/search) url
+echo $pic_url
+
 # 删除JSON 格式不需要的换行符
 # message=`echo  "${commits//$'\n\n'/''}"`
 # message=`echo  "${message//$'\n'/''}"`
