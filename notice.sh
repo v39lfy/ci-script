@@ -81,8 +81,9 @@ function parse_json()
     sed -e 's/^"//'  -e 's/"$//'
 }
 pic_url=`parse_json $(curl https://api.thecatapi.com/v1/images/search) url`
-echo $pic_url
+echo "pic_url:"$pic_url
 screenshot=" ![screenshot]("$pic_url")\n\n"
+echo "screenshot:"$screenshot
 
 # 删除JSON 格式不需要的换行符
 # message=`echo  "${commits//$'\n\n'/''}"`
