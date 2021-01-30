@@ -50,7 +50,7 @@ fi
 
 # git log 格式
 # %cd 时间
-PRETTY_FORMAT="> %an: "
+PRETTY_FORMAT="> - %an: "
 # 在CI状态，添加提交链接
 if [ $CI_PROJECT_URL ]; then
 	PRETTY_FORMAT=$PRETTY_FORMAT"[%B]("$CI_PROJECT_URL"/-/commit/%H) \n"
