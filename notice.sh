@@ -82,7 +82,7 @@ function parse_json()
 }
 pic_url=`parse_json $(curl https://api.thecatapi.com/v1/images/search) url`
 echo $pic_url
-screenshot=" ![screenshot]('$pic_url')\n\n"
+screenshot=" ![screenshot]("$pic_url")\n\n"
 
 # 删除JSON 格式不需要的换行符
 # message=`echo  "${commits//$'\n\n'/''}"`
