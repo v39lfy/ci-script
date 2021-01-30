@@ -63,8 +63,8 @@ commits=`git log --abbrev-commit --date=format:"$DATE_FORMAT" --pretty="$PRETTY_
 echo $commits
 
 # 删除JSON 格式不需要的换行符
-message=`echo  "${commits//$'\n\n'/''}"`
-message=`echo  "${message//$'\n'/''}"`
+# message=`echo  "${commits//$'\n\n'/''}"`
+# message=`echo  "${message//$'\n'/''}"`
 
 echo $message
 
@@ -76,7 +76,7 @@ fi
 
 # 钉钉推送
 if [ $DING_BOT_TOKEN ]; then
-	body=$(echo '{"msgtype": "markdown","markdown": {"title": "'$TITLE'", "text": "'$message'"}}')
+	body=$(echo '{"msgtype": "markdown","markdown": {"title": "'$TITLE'", "text": "'$commits'"}}')
 	echo $body
 	curl 'https://oapi.dingtalk.com/robot/send?access_token='$DING_BOT_TOKEN \
 	    -H 'Content-Type: application/json' \
