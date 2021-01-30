@@ -65,8 +65,7 @@ echo $commits
 # 删除JSON 格式不需要的换行符
 # message=`echo  "${commits//$'\n\n'/''}"`
 # message=`echo  "${message//$'\n'/''}"`
-
-echo $message
+# echo $message
 
 # 填充消息标题
 if [ ! -n "$TITLE" ]; then
@@ -74,7 +73,7 @@ if [ ! -n "$TITLE" ]; then
 fi
 
 #test
-commits = "#### 杭州天气 @150XXXXXXXX \n> 9度，西北风1级，空气良89，相对温度73%\n> ![screenshot](https://img.alicdn.com/tfs/TB1NwmBEL9TBuNjy1zbXXXpepXa-2400-1218.png)\n> ###### 10点20分发布 [天气](https://www.dingalk.com) \n"
+commits="#### 杭州天气 @150XXXXXXXX \n> 9度，西北风1级，空气良89，相对温度73%\n> ![screenshot](https://img.alicdn.com/tfs/TB1NwmBEL9TBuNjy1zbXXXpepXa-2400-1218.png)\n> ###### 10点20分发布 [天气](https://www.dingalk.com) \n"
 
 # 钉钉推送
 if [ $DING_BOT_TOKEN ]; then
