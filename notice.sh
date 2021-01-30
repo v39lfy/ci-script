@@ -48,8 +48,14 @@ if [ ! -n "$DATE_FORMAT" ]; then
 	DATE_FORMAT='%d/%m %H:%M'
 fi
 
+# commit 历史记录URL 的前半部分
+if [ ! -n "$COMMIT_URL_FRONT_PART" ]; then
+	COMMIT_URL_FRONT_PART='http://mock.demo'
+fi
+
 # 获取两次push区间内的所有的提交记录
-commits=`git log --abbrev-commit --date=format:"$DATE_FORMAT" --pretty="> - **%cd, %an**:%B\n" ${BEGIN_SEGMENT}..${END_SEGMENT}`
+# %cd 时间
+commits=`git log --abbrev-commit --date=format:"$DATE_FORMAT" --pretty="> **%an**: [%B]('$COMMIT_URL_FRONT_PART'%H)\n" ${BEGIN_SEGMENT}..${END_SEGMENT}`
 echo $commits
 
 # 删除JSON 格式不需要的换行符
@@ -62,6 +68,7 @@ echo $message
 if [ ! -n "$TITLE" ]; then
 	TITLE='code is updated:'
 fi
+
 
 # 钉钉推送
 if [ $DING_BOT_TOKEN ]; then
