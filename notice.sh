@@ -48,11 +48,6 @@ if [ ! -n "$DATE_FORMAT" ]; then
 	DATE_FORMAT='%d/%m %H:%M'
 fi
 
-# commit 历史记录URL 的前半部分
-if [ ! -n "$COMMIT_URL_FRONT_PART" ]; then
-	COMMIT_URL_FRONT_PART='http://mock.demo'
-fi
-
 # git log 格式
 PRETTY_FORMAT="> **%an**: "
 # 在CI状态，添加提交链接
