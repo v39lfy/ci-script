@@ -80,9 +80,9 @@ function parse_json()
     sed -e 's/^[ \t]*//g' | \
     sed -e 's/^"//'  -e 's/"$//'
 }
-# pic_url=parse_json $(curl https://api.thecatapi.com/v1/images/search) url
-parse_json $(curl https://api.thecatapi.com/v1/images/search) url
-# echo $pic_url
+pic_url=`parse_json $(curl https://api.thecatapi.com/v1/images/search) url`
+echo $pic_url
+screenshot=" ![screenshot]('$pic_url')\n\n"
 
 # 删除JSON 格式不需要的换行符
 # message=`echo  "${commits//$'\n\n'/''}"`
@@ -99,7 +99,7 @@ fi
 
 # 钉钉推送
 if [ $DING_BOT_TOKEN ]; then
-	body=$(echo '{"msgtype": "markdown","markdown": {"title": "'$TITLE'", "text": "#### '$TITLE' \n> '$commits'"}}')
+	body=$(echo '{"msgtype": "markdown","markdown": {"title": "'$TITLE'", "text": "#### '$TITLE' \n> '$commits''screenshot'"}}')
 	echo $body
 	curl 'https://oapi.dingtalk.com/robot/send?access_token='$DING_BOT_TOKEN \
 	    -H 'Content-Type: application/json' \
