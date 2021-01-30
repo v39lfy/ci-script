@@ -49,6 +49,7 @@ if [ ! -n "$DATE_FORMAT" ]; then
 fi
 
 # git log 格式
+# %cd 时间
 PRETTY_FORMAT="> **%an**: "
 # 在CI状态，添加提交链接
 if [ $CI_PROJECT_URL ]; then
@@ -58,8 +59,7 @@ else:
 fi
 
 # 获取两次push区间内的所有的提交记录
-# %cd 时间
-commits=`git log --abbrev-commit --date=format:"$DATE_FORMAT" --pretty="'PRETTY_FORMAT'" ${BEGIN_SEGMENT}..${END_SEGMENT}`
+commits=`git log --abbrev-commit --date=format:"$DATE_FORMAT" --pretty="'$PRETTY_FORMAT'" ${BEGIN_SEGMENT}..${END_SEGMENT}`
 echo $commits
 
 # 删除JSON 格式不需要的换行符
