@@ -50,12 +50,12 @@ fi
 
 # git log 格式
 # %cd 时间
-PRETTY_FORMAT="> %an "
+PRETTY_FORMAT="%an "
 # 在CI状态，添加提交链接
 if [ $CI_PROJECT_URL ]; then
-	PRETTY_FORMAT=$PRETTY_FORMAT"[%B]("$CI_PROJECT_URL"/-/commit/%H)\n"
+	PRETTY_FORMAT=$PRETTY_FORMAT"[%B]("$CI_PROJECT_URL"/-/commit/%H)\n>"
 else
-	PRETTY_FORMAT=$PRETTY_FORMAT"%B\n"
+	PRETTY_FORMAT=$PRETTY_FORMAT"%B\n>"
 fi
 echo $PRETTY_FORMAT
 
@@ -78,7 +78,7 @@ fi
 
 # 钉钉推送
 if [ $DING_BOT_TOKEN ]; then
-	body=$(echo '{"msgtype": "markdown","markdown": {"title": "'$TITLE'", "text": "#### '$TITLE' \n'$commits'"}}')
+	body=$(echo '{"msgtype": "markdown","markdown": {"title": "'$TITLE'", "text": "#### '$TITLE' \n> '$commits'"}}')
 	echo $body
 	curl 'https://oapi.dingtalk.com/robot/send?access_token='$DING_BOT_TOKEN \
 	    -H 'Content-Type: application/json' \
