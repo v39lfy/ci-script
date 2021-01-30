@@ -50,13 +50,14 @@ fi
 
 # git log 格式
 # %cd 时间
-PRETTY_FORMAT="> %an: "
+PRETTY_FORMAT="> %an "
 # 在CI状态，添加提交链接
 if [ $CI_PROJECT_URL ]; then
 	PRETTY_FORMAT=$PRETTY_FORMAT"[%B]("$CI_PROJECT_URL"/-/commit/%H)\n"
 else
 	PRETTY_FORMAT=$PRETTY_FORMAT"%B\n"
 fi
+echo $PRETTY_FORMAT
 
 # 获取两次push区间内的所有的提交记录
 commits=`git log --abbrev-commit --date=format:"$DATE_FORMAT" --pretty="$PRETTY_FORMAT" ${BEGIN_SEGMENT}..${END_SEGMENT}`
