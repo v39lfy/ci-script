@@ -103,4 +103,10 @@ fi
 # 企业微信推送
 if [ $WECHAT_BOT_TOKEN ]; then
 	echo "还未实现"
+	body=$(echo '{"msgtype": "markdown","markdown": {"context": "#### '$TITLE' \n> '$commits''$screenshot'"}}')
+	echo "body: "$body
+	curl 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key='$WECHAT_BOT_TOKEN \
+	    -H 'Content-Type: application/json' \
+	    -d "${body}"
+
 fi
