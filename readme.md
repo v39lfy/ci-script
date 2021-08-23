@@ -16,8 +16,11 @@
 
 #### 企业微信
 ```shell
-- WECHAT_BOT_TOKEN 企业微信推送的Token
+ curl https://sh.pvp.run/notice.sh | \
+ WECHAT_BOT_TOKEN=<Token> \
+ sh
 ```
+- WECHAT_BOT_TOKEN 企业微信推送的Token
 ##### 变量列表:
 - 暂无
 
